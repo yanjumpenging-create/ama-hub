@@ -128,7 +128,7 @@ export default function App() {
 
       <div style={{ background: 'linear-gradient(180deg,#ffffff 0%,#f9fffe 100%)', borderBottom: '1px solid #bbf7d0', borderTop: '3px solid #059669', padding: '12px 24px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', position: 'sticky', top: 0, zIndex: 100, boxShadow: '0 2px 16px rgba(5,150,105,0.10)' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-          <img src="/logo.png" alt="Tree Finance" style={{ height: 52, width: 'auto', objectFit: 'contain' }} />
+          <img src="/logo.png" alt="Tree Finance" style={{ height: 120, width: 'auto', objectFit: 'contain' }} />
           <div style={{ borderLeft: '2px solid #bbf7d0', paddingLeft: 14 }}>
             <div style={{ fontSize: 16, fontWeight: 800, color: '#064e3b', letterSpacing: 0.3 }}>AMA Archives</div>
             <div style={{ fontSize: 12, color: '#059669', letterSpacing: 0.3, marginTop: 2 }}>{records.length} Records</div>

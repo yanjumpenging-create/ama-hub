@@ -126,12 +126,12 @@ export default function App() {
         <div style={{ position: 'fixed', top: 20, right: 20, zIndex: 9999, padding: '10px 20px', borderRadius: 8, background: toast.type === 'err' ? '#fef2f2' : '#f0fdf4', border: `1px solid ${toast.type === 'err' ? '#dc2626' : '#059669'}`, color: toast.type === 'err' ? '#dc2626' : '#065f46', fontSize: 14, boxShadow: '0 4px 20px rgba(0,0,0,0.6)' }}>{toast.msg}</div>
       )}
 
-      <div style={{ background: 'linear-gradient(180deg,#ffffff 0%,#f9fffe 100%)', borderBottom: '1px solid #bbf7d0', borderTop: '3px solid #059669', padding: '12px 24px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', position: 'sticky', top: 0, zIndex: 100, boxShadow: '0 2px 16px rgba(5,150,105,0.10)' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-          <img src="/logo.png" alt="Tree Finance" style={{ height: 120, width: 'auto', objectFit: 'contain' }} />
-          <div style={{ borderLeft: '2px solid #bbf7d0', paddingLeft: 14 }}>
-            <div style={{ fontSize: 16, fontWeight: 800, color: '#064e3b', letterSpacing: 0.3 }}>AMA Archives</div>
-            <div style={{ fontSize: 12, color: '#059669', letterSpacing: 0.3, marginTop: 2 }}>{records.length} Records</div>
+      <div style={{ background: 'linear-gradient(180deg,#ffffff 0%,#f9fffe 100%)', borderBottom: '1px solid #bbf7d0', borderTop: '4px solid #059669', padding: '16px 28px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', position: 'sticky', top: 0, zIndex: 100, boxShadow: '0 2px 16px rgba(5,150,105,0.10)', minHeight: 80 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
+          <img src="/logo.png" alt="Tree Finance" style={{ height: 56, width: 'auto', maxWidth: 200, objectFit: 'contain' }} />
+          <div style={{ borderLeft: '2px solid #bbf7d0', paddingLeft: 16 }}>
+            <div style={{ fontSize: 22, fontWeight: 900, color: '#064e3b', letterSpacing: 0.5, lineHeight: 1.2 }}>AMA Archives</div>
+            <div style={{ fontSize: 13, color: '#059669', letterSpacing: 0.3, marginTop: 3 }}>{records.length} Records</div>
           </div>
         </div>
         <div style={{ display: 'flex', gap: 8, alignItems: 'center', flexWrap: 'wrap' }}>

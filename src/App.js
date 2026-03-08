@@ -165,7 +165,7 @@ export default function App() {
                     <h1 style={{ margin: 0, fontSize: 22, fontWeight: 800, color: '#f1f5f9' }}>{r.project_name}</h1>
                     {r.episode && <Tag>{r.episode} 期</Tag>}
                     <span style={{ fontSize: 12, padding: '3px 10px', borderRadius: 5, background: sc.bg, color: sc.text, border: `1px solid ${sc.border}` }}>{r.status}</span>
-                    {r.platform && <Tag color="#2d1a44">{r.platform}</Tag>}
+                    {r.platform && <Tag color="#0d2d1a">{r.platform}</Tag>}
                   </div>
                   <div style={{ fontSize: 13, color: '#94a3b8', marginBottom: 4 }}>
                     📅 {r.date}{r.time ? ` ${r.time}` : ''}{r.owner ? `　👤 ${r.owner}` : ''}
@@ -402,7 +402,7 @@ function RecordCard({ r, onOpen, onEdit, onDelete }) {
           <span style={{ fontSize: 15, fontWeight: 700, color: '#f1f5f9' }}>{r.project_name}</span>
           {r.episode && <Tag>{r.episode} 期</Tag>}
           <span style={{ fontSize: 11, padding: '2px 8px', borderRadius: 4, background: sc.bg, color: sc.text, border: `1px solid ${sc.border}` }}>{r.status}</span>
-          {r.platform && <Tag color="#2d1a44">{r.platform}</Tag>}
+          {r.platform && <Tag color="#0d2d1a">{r.platform}</Tag>}
         </div>
         <div style={{ fontSize: 13, color: '#94a3b8', marginBottom: 4, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{r.theme || '（暂无主题）'}</div>
         <div style={{ fontSize: 12, color: '#4a7c59', display: 'flex', gap: 16, flexWrap: 'wrap' }}>

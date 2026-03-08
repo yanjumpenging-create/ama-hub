@@ -128,10 +128,10 @@ export default function App() {
 
       <div style={{ background: 'linear-gradient(180deg,#071a10 0%,#050f0a 100%)', borderBottom: '1px solid #134d2a', borderTop: '3px solid #059669', padding: '12px 24px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', position: 'sticky', top: 0, zIndex: 100, boxShadow: '0 4px 24px rgba(5,150,105,0.12)' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-          <div style={{ width: 38, height: 38, borderRadius: 10, background: 'linear-gradient(135deg,#10b981,#059669)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 900, fontSize: 19, color: '#fff', boxShadow: '0 2px 12px rgba(16,185,129,0.4)' }}>A</div>
-          <div>
-            <div style={{ fontSize: 17, fontWeight: 800, color: '#ecfdf5', letterSpacing: 1 }}>Treefinance AMA Archives</div>
-            <div style={{ fontSize: 12, color: '#34d399', letterSpacing: 0.5 }}>TreeFinance · {records.length} Records</div>
+          <img src="/logo.png" alt="Tree Finance" style={{ height: 36, width: 'auto', objectFit: 'contain', filter: 'brightness(1.15)' }} />
+          <div style={{ borderLeft: '1px solid #134d2a', paddingLeft: 14 }}>
+            <div style={{ fontSize: 15, fontWeight: 800, color: '#ecfdf5', letterSpacing: 0.5 }}>AMA Archives</div>
+            <div style={{ fontSize: 12, color: '#34d399', letterSpacing: 0.5 }}>{records.length} Records</div>
           </div>
         </div>
         <div style={{ display: 'flex', gap: 8, alignItems: 'center', flexWrap: 'wrap' }}>

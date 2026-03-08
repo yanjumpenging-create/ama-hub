@@ -126,12 +126,12 @@ export default function App() {
         <div style={{ position: 'fixed', top: 20, right: 20, zIndex: 9999, padding: '10px 20px', borderRadius: 8, background: toast.type === 'err' ? '#450a0a' : '#052e16', border: `1px solid ${toast.type === 'err' ? '#dc2626' : '#059669'}`, color: '#fff', fontSize: 14, boxShadow: '0 4px 20px rgba(0,0,0,0.6)' }}>{toast.msg}</div>
       )}
 
-      <div style={{ background: '#071410', borderBottom: '1px solid #0f2d1e', padding: '14px 24px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', position: 'sticky', top: 0, zIndex: 100 }}>
+      <div style={{ background: 'linear-gradient(180deg,#071a10 0%,#050f0a 100%)', borderBottom: '1px solid #134d2a', borderTop: '3px solid #059669', padding: '12px 24px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', position: 'sticky', top: 0, zIndex: 100, boxShadow: '0 4px 24px rgba(5,150,105,0.12)' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-          <div style={{ width: 36, height: 36, borderRadius: 8, background: 'linear-gradient(135deg,#059669,#065f46)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 900, fontSize: 18, color: '#fff' }}>A</div>
+          <div style={{ width: 38, height: 38, borderRadius: 10, background: 'linear-gradient(135deg,#10b981,#059669)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 900, fontSize: 19, color: '#fff', boxShadow: '0 2px 12px rgba(16,185,129,0.4)' }}>A</div>
           <div>
-            <div style={{ fontSize: 15, fontWeight: 700, color: '#ecfdf5', letterSpacing: 1 }}>AMA 档案库</div>
-            <div style={{ fontSize: 11, color: '#4a7c59' }}>大树财经 · {records.length} 条记录</div>
+            <div style={{ fontSize: 15, fontWeight: 800, color: '#ecfdf5', letterSpacing: 1.5 }}>AMA 档案库</div>
+            <div style={{ fontSize: 11, color: '#34d399', letterSpacing: 0.5 }}>大树财经 · {records.length} 条记录</div>
           </div>
         </div>
         <div style={{ display: 'flex', gap: 8, alignItems: 'center', flexWrap: 'wrap' }}>
@@ -270,20 +270,20 @@ export default function App() {
             <h2 style={{ margin: '0 0 20px', fontSize: 18, fontWeight: 700, color: '#f1f5f9' }}>📊 数据看板</h2>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: 14, marginBottom: 24 }}>
               {[
-                { label: '总 AMA 数', value: records.length, color: '#34d399' },
-                { label: '已完成', value: completed.length, color: '#34d399' },
-                { label: '计划中', value: planned.length, color: '#fbbf24' },
-                { label: '完成率', value: records.length ? Math.round(completed.length / records.length * 100) + '%' : '0%', color: '#6ee7b7' },
-              ].map(({ label, value, color }) => (
-                <div key={label} style={{ background: '#071410', border: '1px solid #0f2d1e', borderRadius: 10, padding: '20px 16px', textAlign: 'center' }}>
-                  <div style={{ fontSize: 28, fontWeight: 800, color }}>{value}</div>
-                  <div style={{ fontSize: 12, color: '#64748b', marginTop: 4 }}>{label}</div>
+                { label: '总 AMA 数', value: records.length, color: '#10b981', bar: '#059669' },
+                { label: '已完成', value: completed.length, color: '#34d399', bar: '#10b981' },
+                { label: '计划中', value: planned.length, color: '#fbbf24', bar: '#d97706' },
+                { label: '完成率', value: records.length ? Math.round(completed.length / records.length * 100) + '%' : '0%', color: '#6ee7b7', bar: '#059669' },
+              ].map(({ label, value, color, bar }) => (
+                <div key={label} style={{ background: 'linear-gradient(180deg,#0a1f14 0%,#071a10 100%)', border: '1px solid #134d2a', borderTop: `3px solid ${bar}`, borderRadius: 12, padding: '20px 16px', textAlign: 'center', boxShadow: '0 2px 12px rgba(0,0,0,0.3)' }}>
+                  <div style={{ fontSize: 32, fontWeight: 900, color, letterSpacing: '-0.02em', fontVariantNumeric: 'tabular-nums' }}>{value}</div>
+                  <div style={{ fontSize: 12, color: '#4a7c59', marginTop: 6, fontWeight: 500 }}>{label}</div>
                 </div>
               ))}
             </div>
 
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
-              <div style={{ background: '#071410', border: '1px solid #0f2d1e', borderRadius: 10, padding: 20 }}>
+              <div style={{ background: 'linear-gradient(180deg,#0a1f14 0%,#071a10 100%)', border: '1px solid #134d2a', borderRadius: 12, padding: 20, boxShadow: '0 2px 12px rgba(0,0,0,0.25)' }}>
                 <div style={{ fontSize: 13, fontWeight: 700, color: '#94a3b8', marginBottom: 16 }}>📈 每月 AMA 数量</div>
                 {monthlyData.length === 0 ? <div style={{ color: '#1a3a2a', fontSize: 13, textAlign: 'center', padding: 20 }}>暂无数据</div> : (
                   <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
@@ -393,8 +393,11 @@ function RecordCard({ r, onOpen, onEdit, onDelete }) {
   const [hover, setHover] = useState(false);
   return (
     <div onClick={onOpen} onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}
-      style={{ background: '#071410', border: `1px solid ${hover ? '#059669' : '#0f2d1e'}`, borderRadius: 10, padding: '16px 20px', display: 'flex', alignItems: 'center', gap: 16, cursor: 'pointer', marginBottom: 12, transition: 'border-color 0.2s' }}>
-      <div style={{ width: 56, height: 56, borderRadius: 8, background: '#0f2d1e', flexShrink: 0, overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+      style={{ background: hover ? '#0a1f14' : '#071a10', border: `1px solid ${hover ? '#10b981' : '#134d2a'}`,
+        borderLeft: `4px solid ${hover ? '#10b981' : '#059669'}`,
+        borderRadius: 10, padding: '16px 20px', display: 'flex', alignItems: 'center', gap: 16, cursor: 'pointer', marginBottom: 10,
+        transition: 'all 0.2s ease', boxShadow: hover ? '0 4px 20px rgba(16,185,129,0.15)' : '0 1px 4px rgba(0,0,0,0.3)' }}>
+      <div style={{ width: 56, height: 56, borderRadius: 10, background: '#0f2d1e', flexShrink: 0, overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid #134d2a' }}>
         {r.poster_url ? <img src={r.poster_url} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} /> : <span style={{ fontSize: 24 }}>🎙️</span>}
       </div>
       <div style={{ flex: 1, minWidth: 0 }}>
@@ -438,21 +441,24 @@ function Center({ children }) {
 
 function Empty({ search }) {
   return (
-    <div style={{ textAlign: 'center', padding: 80, color: '#1a3a2a', border: '1px dashed #0f2d1e', borderRadius: 12 }}>
-      <div style={{ fontSize: 40, marginBottom: 12 }}>📋</div>
-      <div style={{ fontSize: 16, marginBottom: 6 }}>{search ? '没有找到匹配记录' : '还没有 AMA 记录'}</div>
-      <div style={{ fontSize: 13, color: '#4a7c59' }}>点击右上角「新建 AMA」开始添加</div>
+    <div style={{ textAlign: 'center', padding: '60px 40px', border: '1px dashed #134d2a', borderRadius: 16, background: 'linear-gradient(135deg,#071a10 0%,#050f0a 100%)' }}>
+      <div style={{ fontSize: 48, marginBottom: 16, filter: 'drop-shadow(0 0 12px rgba(16,185,129,0.4))' }}>🎙️</div>
+      <div style={{ fontSize: 17, fontWeight: 700, color: '#34d399', marginBottom: 8 }}>{search ? '没有找到匹配记录' : '还没有 AMA 记录'}</div>
+      <div style={{ fontSize: 13, color: '#4a7c59' }}>{search ? '换个关键词试试' : '点击右上角「+ 新建 AMA」开始添加'}</div>
     </div>
   );
 }
 
 const inputS = {
-  width: '100%', padding: '10px 14px', borderRadius: 7,
-  background: '#0f1c2e', border: '1px solid #0f2d1e',
-  color: '#e2e8f0', fontSize: 14, outline: 'none',
+  width: '100%', padding: '10px 14px', borderRadius: 8,
+  background: '#071a10', border: '1px solid #134d2a',
+  color: '#d1fae5', fontSize: 14, outline: 'none',
   boxSizing: 'border-box', fontFamily: 'inherit',
+  transition: 'border-color 0.2s',
 };
 
 function btnS(bg, color, border, gradient = false, dashed = false) {
-  return { padding: '7px 14px', borderRadius: 7, background: bg, color, fontSize: 13, fontWeight: 600, border: border === 'none' ? 'none' : `1px ${dashed ? 'dashed' : 'solid'} ${border}`, cursor: 'pointer' };
+  return { padding: '8px 16px', borderRadius: 8, background: bg, color, fontSize: 13, fontWeight: 600,
+    border: border === 'none' ? 'none' : `1px ${dashed ? 'dashed' : 'solid'} ${border}`,
+    cursor: 'pointer', transition: 'opacity 0.15s, transform 0.1s', letterSpacing: '0.02em' };
 }

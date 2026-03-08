@@ -121,7 +121,7 @@ export default function App() {
   const platformDist = getPlatformDist(records);
 
   return (
-    <div style={{ minHeight: '100vh', background: '#050f0a', color: '#e2e8f0', fontFamily: "'PingFang SC','Noto Sans SC',sans-serif" }}>
+    <div style={{ minHeight: '100vh', background: '#050f0a', color: '#e2e8f0', fontFamily: "'PingFang SC','Noto Sans SC',sans-serif", fontSize: 15 }}>
       {toast && (
         <div style={{ position: 'fixed', top: 20, right: 20, zIndex: 9999, padding: '10px 20px', borderRadius: 8, background: toast.type === 'err' ? '#450a0a' : '#052e16', border: `1px solid ${toast.type === 'err' ? '#dc2626' : '#059669'}`, color: '#fff', fontSize: 14, boxShadow: '0 4px 20px rgba(0,0,0,0.6)' }}>{toast.msg}</div>
       )}
@@ -130,8 +130,8 @@ export default function App() {
         <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
           <div style={{ width: 38, height: 38, borderRadius: 10, background: 'linear-gradient(135deg,#10b981,#059669)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 900, fontSize: 19, color: '#fff', boxShadow: '0 2px 12px rgba(16,185,129,0.4)' }}>A</div>
           <div>
-            <div style={{ fontSize: 15, fontWeight: 800, color: '#ecfdf5', letterSpacing: 1.5 }}>AMA 档案库</div>
-            <div style={{ fontSize: 11, color: '#34d399', letterSpacing: 0.5 }}>大树财经 · {records.length} 条记录</div>
+            <div style={{ fontSize: 17, fontWeight: 800, color: '#ecfdf5', letterSpacing: 1 }}>Treefinance AMA Archives</div>
+            <div style={{ fontSize: 12, color: '#34d399', letterSpacing: 0.5 }}>TreeFinance · {records.length} Records</div>
           </div>
         </div>
         <div style={{ display: 'flex', gap: 8, alignItems: 'center', flexWrap: 'wrap' }}>
@@ -146,7 +146,7 @@ export default function App() {
 
         {view === 'list' && (
           <>
-            <input value={search} onChange={e => setSearch(e.target.value)} placeholder="搜索项目名、主题、KOL、负责人..." style={{ ...inputS, width: '100%', marginBottom: 20, boxSizing: 'border-box' }} />
+            <input value={search} onChange={e => setSearch(e.target.value)} placeholder="搜索项目名、主题、KOL、负责人..." style={{ ...inputS, width: '100%', marginBottom: 20, fontSize: 15, boxSizing: 'border-box' }} />
             {loading ? <Center>加载中...</Center>
               : filtered.length === 0 ? <Empty search={search} />
               : filtered.map(r => <RecordCard key={r.id} r={r} onOpen={() => { setDetail(r); setView('detail'); }} onEdit={() => openEdit(r)} onDelete={() => handleDelete(r.id)} />)}
@@ -162,7 +162,7 @@ export default function App() {
                 {r.poster_url && <img src={r.poster_url} alt="海报" style={{ width: 120, height: 120, borderRadius: 10, objectFit: 'cover', border: '1px solid #0f2d1e' }} />}
                 <div style={{ flex: 1, minWidth: 200 }}>
                   <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 8, marginBottom: 8 }}>
-                    <h1 style={{ margin: 0, fontSize: 22, fontWeight: 800, color: '#f1f5f9' }}>{r.project_name}</h1>
+                    <h1 style={{ margin: 0, fontSize: 24, fontWeight: 800, color: '#f1f5f9' }}>{r.project_name}</h1>
                     {r.episode && <Tag>{r.episode} 期</Tag>}
                     <span style={{ fontSize: 12, padding: '3px 10px', borderRadius: 5, background: sc.bg, color: sc.text, border: `1px solid ${sc.border}` }}>{r.status}</span>
                     {r.platform && <Tag color="#0d2d1a">{r.platform}</Tag>}
@@ -197,7 +197,7 @@ export default function App() {
 
         {view === 'form' && (
           <div>
-            <h2 style={{ margin: '0 0 24px', fontSize: 18, fontWeight: 700, color: '#f1f5f9' }}>{editId ? '编辑 AMA 记录' : '新建 AMA 记录'}</h2>
+            <h2 style={{ margin: '0 0 24px', fontSize: 20, fontWeight: 700, color: '#f1f5f9' }}>{editId ? '编辑 AMA 记录' : '新建 AMA 记录'}</h2>
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
               <F label="项目名称 *"><input value={form.project_name} onChange={e => setForm(f => ({ ...f, project_name: e.target.value }))} placeholder="如：OracleX" style={inputS} /></F>
               <F label="期数"><input value={form.episode} onChange={e => setForm(f => ({ ...f, episode: e.target.value }))} placeholder="如：001" style={inputS} /></F>
@@ -267,7 +267,7 @@ export default function App() {
 
         {view === 'dashboard' && (
           <div>
-            <h2 style={{ margin: '0 0 20px', fontSize: 18, fontWeight: 700, color: '#f1f5f9' }}>📊 数据看板</h2>
+            <h2 style={{ margin: '0 0 20px', fontSize: 20, fontWeight: 700, color: '#f1f5f9' }}>📊 数据看板</h2>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: 14, marginBottom: 24 }}>
               {[
                 { label: '总 AMA 数', value: records.length, color: '#10b981', bar: '#059669' },
@@ -276,24 +276,24 @@ export default function App() {
                 { label: '完成率', value: records.length ? Math.round(completed.length / records.length * 100) + '%' : '0%', color: '#6ee7b7', bar: '#059669' },
               ].map(({ label, value, color, bar }) => (
                 <div key={label} style={{ background: 'linear-gradient(180deg,#0a1f14 0%,#071a10 100%)', border: '1px solid #134d2a', borderTop: `3px solid ${bar}`, borderRadius: 12, padding: '20px 16px', textAlign: 'center', boxShadow: '0 2px 12px rgba(0,0,0,0.3)' }}>
-                  <div style={{ fontSize: 32, fontWeight: 900, color, letterSpacing: '-0.02em', fontVariantNumeric: 'tabular-nums' }}>{value}</div>
-                  <div style={{ fontSize: 12, color: '#4a7c59', marginTop: 6, fontWeight: 500 }}>{label}</div>
+                  <div style={{ fontSize: 36, fontWeight: 900, color, letterSpacing: '-0.02em', fontVariantNumeric: 'tabular-nums' }}>{value}</div>
+                  <div style={{ fontSize: 13, color: '#4a7c59', marginTop: 6, fontWeight: 500 }}>{label}</div>
                 </div>
               ))}
             </div>
 
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
               <div style={{ background: 'linear-gradient(180deg,#0a1f14 0%,#071a10 100%)', border: '1px solid #134d2a', borderRadius: 12, padding: 20, boxShadow: '0 2px 12px rgba(0,0,0,0.25)' }}>
-                <div style={{ fontSize: 13, fontWeight: 700, color: '#94a3b8', marginBottom: 16 }}>📈 每月 AMA 数量</div>
+                <div style={{ fontSize: 14, fontWeight: 700, color: '#86a894', marginBottom: 16 }}>📈 每月 AMA 数量</div>
                 {monthlyData.length === 0 ? <div style={{ color: '#1a3a2a', fontSize: 13, textAlign: 'center', padding: 20 }}>暂无数据</div> : (
                   <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
                     {monthlyData.map(({ month, count, max }) => (
                       <div key={month} style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                        <div style={{ fontSize: 12, color: '#64748b', width: 50, flexShrink: 0 }}>{month}</div>
+                        <div style={{ fontSize: 13, color: '#64748b', width: 55, flexShrink: 0 }}>{month}</div>
                         <div style={{ flex: 1, background: '#0f2d1e', borderRadius: 4, height: 20, overflow: 'hidden' }}>
                           <div style={{ width: `${(count / max) * 100}%`, height: '100%', background: 'linear-gradient(90deg,#059669,#065f46)', borderRadius: 4 }} />
                         </div>
-                        <div style={{ fontSize: 12, color: '#34d399', width: 20, textAlign: 'right' }}>{count}</div>
+                        <div style={{ fontSize: 13, color: '#34d399', width: 22, textAlign: 'right' }}>{count}</div>
                       </div>
                     ))}
                   </div>
@@ -301,7 +301,7 @@ export default function App() {
               </div>
 
               <div style={{ background: '#071410', border: '1px solid #0f2d1e', borderRadius: 10, padding: 20 }}>
-                <div style={{ fontSize: 13, fontWeight: 700, color: '#94a3b8', marginBottom: 16 }}>🎤 KOL 出现频次 Top 10</div>
+                <div style={{ fontSize: 14, fontWeight: 700, color: '#86a894', marginBottom: 16 }}>🎤 KOL 出现频次 Top 10</div>
                 {kolFreq.length === 0 ? <div style={{ color: '#1a3a2a', fontSize: 13, textAlign: 'center', padding: 20 }}>暂无数据</div> : (
                   <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
                     {kolFreq.slice(0, 10).map(({ kol, count }, i) => (
@@ -316,7 +316,7 @@ export default function App() {
               </div>
 
               <div style={{ background: '#071410', border: '1px solid #0f2d1e', borderRadius: 10, padding: 20 }}>
-                <div style={{ fontSize: 13, fontWeight: 700, color: '#94a3b8', marginBottom: 16 }}>📡 平台分布</div>
+                <div style={{ fontSize: 14, fontWeight: 700, color: '#86a894', marginBottom: 16 }}>📡 平台分布</div>
                 {platformDist.length === 0 ? <div style={{ color: '#1a3a2a', fontSize: 13, textAlign: 'center', padding: 20 }}>暂无数据</div> : (
                   <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
                     {platformDist.map(({ platform, count, pct }) => (
@@ -333,7 +333,7 @@ export default function App() {
               </div>
 
               <div style={{ background: '#071410', border: '1px solid #0f2d1e', borderRadius: 10, padding: 20 }}>
-                <div style={{ fontSize: 13, fontWeight: 700, color: '#94a3b8', marginBottom: 16 }}>🤖 AI 智能总结</div>
+                <div style={{ fontSize: 14, fontWeight: 700, color: '#86a894', marginBottom: 16 }}>🤖 AI 智能总结</div>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
                   <select value={summaryPeriod} onChange={e => setSummaryPeriod(e.target.value)} style={{ ...inputS, marginBottom: 4 }}>
                     <option value="monthly">月度总结</option>
@@ -354,7 +354,7 @@ export default function App() {
 
         {view === 'analysis' && (
           <div>
-            <h2 style={{ margin: '0 0 20px', fontSize: 18, fontWeight: 700, color: '#f1f5f9' }}>🤖 AI 分析报告</h2>
+            <h2 style={{ margin: '0 0 20px', fontSize: 20, fontWeight: 700, color: '#f1f5f9' }}>🤖 AI 分析报告</h2>
             <div style={{ background: '#071410', border: '1px solid #0f2d1e', borderRadius: 12, padding: '24px 28px' }}>
               {(aiLoading === 'analysis' || aiLoading === 'summary')
                 ? <div style={{ color: '#34d399', textAlign: 'center', padding: 40 }}>AI 分析中，请稍候...</div>
@@ -402,13 +402,13 @@ function RecordCard({ r, onOpen, onEdit, onDelete }) {
       </div>
       <div style={{ flex: 1, minWidth: 0 }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4, flexWrap: 'wrap' }}>
-          <span style={{ fontSize: 15, fontWeight: 700, color: '#f1f5f9' }}>{r.project_name}</span>
+          <span style={{ fontSize: 16, fontWeight: 700, color: '#f1f5f9' }}>{r.project_name}</span>
           {r.episode && <Tag>{r.episode} 期</Tag>}
           <span style={{ fontSize: 11, padding: '2px 8px', borderRadius: 4, background: sc.bg, color: sc.text, border: `1px solid ${sc.border}` }}>{r.status}</span>
           {r.platform && <Tag color="#0d2d1a">{r.platform}</Tag>}
         </div>
-        <div style={{ fontSize: 13, color: '#94a3b8', marginBottom: 4, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{r.theme || '（暂无主题）'}</div>
-        <div style={{ fontSize: 12, color: '#4a7c59', display: 'flex', gap: 16, flexWrap: 'wrap' }}>
+        <div style={{ fontSize: 14, color: '#94a3b8', marginBottom: 4, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{r.theme || '（暂无主题）'}</div>
+        <div style={{ fontSize: 13, color: '#4a7c59', display: 'flex', gap: 16, flexWrap: 'wrap' }}>
           <span>📅 {r.date}{r.time ? ` ${r.time}` : ''}</span>
           {r.owner && <span>👤 {r.owner}</span>}
           {r.kols && <span>🎤 {r.kols.split('\n')[0]}</span>}
@@ -425,7 +425,7 @@ function RecordCard({ r, onOpen, onEdit, onDelete }) {
 function F({ label, children, full }) {
   return (
     <div style={{ gridColumn: full ? '1/-1' : 'auto' }}>
-      <label style={{ display: 'block', fontSize: 12, color: '#64748b', marginBottom: 6, fontWeight: 600, letterSpacing: 0.5 }}>{label}</label>
+      <label style={{ display: 'block', fontSize: 13, color: '#64748b', marginBottom: 6, fontWeight: 600, letterSpacing: 0.5 }}>{label}</label>
       {children}
     </div>
   );
@@ -443,8 +443,8 @@ function Empty({ search }) {
   return (
     <div style={{ textAlign: 'center', padding: '60px 40px', border: '1px dashed #134d2a', borderRadius: 16, background: 'linear-gradient(135deg,#071a10 0%,#050f0a 100%)' }}>
       <div style={{ fontSize: 48, marginBottom: 16, filter: 'drop-shadow(0 0 12px rgba(16,185,129,0.4))' }}>🎙️</div>
-      <div style={{ fontSize: 17, fontWeight: 700, color: '#34d399', marginBottom: 8 }}>{search ? '没有找到匹配记录' : '还没有 AMA 记录'}</div>
-      <div style={{ fontSize: 13, color: '#4a7c59' }}>{search ? '换个关键词试试' : '点击右上角「+ 新建 AMA」开始添加'}</div>
+      <div style={{ fontSize: 18, fontWeight: 700, color: '#34d399', marginBottom: 8 }}>{search ? '没有找到匹配记录' : '还没有 AMA 记录'}</div>
+      <div style={{ fontSize: 14, color: '#4a7c59' }}>{search ? '换个关键词试试' : '点击右上角「+ 新建 AMA」开始添加'}</div>
     </div>
   );
 }
@@ -452,13 +452,13 @@ function Empty({ search }) {
 const inputS = {
   width: '100%', padding: '10px 14px', borderRadius: 8,
   background: '#071a10', border: '1px solid #134d2a',
-  color: '#d1fae5', fontSize: 14, outline: 'none',
+  color: '#d1fae5', fontSize: 15, outline: 'none',
   boxSizing: 'border-box', fontFamily: 'inherit',
   transition: 'border-color 0.2s',
 };
 
 function btnS(bg, color, border, gradient = false, dashed = false) {
-  return { padding: '8px 16px', borderRadius: 8, background: bg, color, fontSize: 13, fontWeight: 600,
+  return { padding: '8px 16px', borderRadius: 8, background: bg, color, fontSize: 14, fontWeight: 600,
     border: border === 'none' ? 'none' : `1px ${dashed ? 'dashed' : 'solid'} ${border}`,
     cursor: 'pointer', transition: 'opacity 0.15s, transform 0.1s', letterSpacing: '0.02em' };
 }

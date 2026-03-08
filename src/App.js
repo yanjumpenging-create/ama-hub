@@ -14,6 +14,8 @@ const EMPTY_FORM = {
   project_name: '', episode: '', date: '', time: '', status: '计划中',
   platform: 'Telegram', owner: '', theme: '', questions: '',
   kols: '', channels: '', replay_url: '', notes: '', poster_url: '',
+  // 效果追踪
+  peak_viewers: '', interactions: '', new_followers: '', rating: 0, effect_notes: '',
 };
 
 export default function App() {
@@ -248,6 +250,44 @@ export default function App() {
               <F label="备注 / 复盘" full>
                 <textarea value={form.notes} onChange={e => setForm(f => ({ ...f, notes: e.target.value }))} placeholder="效果数据、复盘总结..." rows={3} style={{ ...inputS, resize: 'vertical' }} />
               </F>
+              {form.status === '已完成' && (<>
+                <F label="📊 效果追踪" full>
+                  <div style={{ background: '#f0fdf4', border: '1px solid #86efac', borderRadius: 10, padding: '16px 18px' }}>
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 12, marginBottom: 12 }}>
+                      <div>
+                        <label style={{ fontSize: 12, color: '#059669', fontWeight: 600, display: 'block', marginBottom: 5 }}>峰值在线人数</label>
+                        <input type="number" value={form.peak_viewers} onChange={e => setForm(f=>({...f,peak_viewers:e.target.value}))} placeholder="如：320" style={inputS} />
+                      </div>
+                      <div>
+                        <label style={{ fontSize: 12, color: '#059669', fontWeight: 600, display: 'block', marginBottom: 5 }}>互动数量</label>
+                        <input type="number" value={form.interactions} onChange={e => setForm(f=>({...f,interactions:e.target.value}))} placeholder="评论+转发" style={inputS} />
+                      </div>
+                      <div>
+                        <label style={{ fontSize: 12, color: '#059669', fontWeight: 600, display: 'block', marginBottom: 5 }}>新增关注</label>
+                        <input type="number" value={form.new_followers} onChange={e => setForm(f=>({...f,new_followers:e.target.value}))} placeholder="本次新增" style={inputS} />
+                      </div>
+                    </div>
+                    <div style={{ marginBottom: 12 }}>
+                      <label style={{ fontSize: 12, color: '#059669', fontWeight: 600, display: 'block', marginBottom: 6 }}>综合评分</label>
+                      <div style={{ display: 'flex', gap: 8 }}>
+                        {[1,2,3,4,5].map(n => (
+                          <button key={n} onClick={() => setForm(f=>({...f,rating:n}))}
+                            style={{ width: 36, height: 36, borderRadius: 8, border: `2px solid ${form.rating>=n?'#059669':'#bbf7d0'}`,
+                              background: form.rating>=n?'#059669':'#f0fdf4', color: form.rating>=n?'#fff':'#059669',
+                              fontWeight: 700, fontSize: 15, cursor: 'pointer' }}>{n}</button>
+                        ))}
+                        <span style={{ alignSelf: 'center', fontSize: 13, color: '#6b7280', marginLeft: 4 }}>
+                          {['','很差','较差','一般','不错','很棒！'][form.rating]||''}
+                        </span>
+                      </div>
+                    </div>
+                    <div>
+                      <label style={{ fontSize: 12, color: '#059669', fontWeight: 600, display: 'block', marginBottom: 5 }}>效果备注</label>
+                      <textarea value={form.effect_notes} onChange={e => setForm(f=>({...f,effect_notes:e.target.value}))} placeholder="亮点、不足、下次改进..." rows={2} style={{ ...inputS, resize: 'vertical' }} />
+                    </div>
+                  </div>
+                </F>
+              </>)}
               {(form.project_name && form.theme) && (
                 <F label={<span style={{ display: 'flex', alignItems: 'center', gap: 8 }}>宣传文案 <button onClick={handleGenPromo} disabled={aiLoading === 'promo'} style={{ ...btnS('#f0fdf4','#6ee7b7','#065f46'), fontSize: 11, padding: '2px 10px' }}>{aiLoading === 'promo' ? '生成中...' : '🤖 AI 生成'}</button></span>} full>
                   {form._promo

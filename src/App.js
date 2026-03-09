@@ -30,6 +30,7 @@ export default function App() {
   const [uploading, setUploading] = useState(false);
   const [toast, setToast] = useState(null);
   const [aiLoading, setAiLoading] = useState(null);
+  const [promoTab, setPromoTab] = useState('twitter_cn');
   const [analysisText, setAnalysisText] = useState('');
   const [summaryPeriod, setSummaryPeriod] = useState('monthly');
   const fileRef = useRef();
@@ -91,9 +92,10 @@ export default function App() {
   async function handleGenPromo() {
     setAiLoading('promo');
     try {
-      const text = await generatePromo({ projectName: form.project_name, theme: form.theme, date: form.date, kols: form.kols, questions: form.questions });
-      setForm(f => ({ ...f, _promo: text }));
-      showToast('宣传文案已生成 ✓');
+      const result = await generatePromo({ projectName: form.project_name, theme: form.theme, date: form.date, time: form.time, kols: form.kols, platform: form.platform, questions: form.questions, notes: form.notes });
+      setForm(f => ({ ...f, _promo: result }));
+      setPromoTab('twitter_cn');
+      showToast('宣发素材已生成 ✓ 4个版本');
     } catch (e) { showToast('AI 调用失败：' + e.message, 'err'); }
     setAiLoading(null);
   }
@@ -313,10 +315,51 @@ export default function App() {
                 </F>
               </>)}
               {(form.project_name && form.theme) && (
-                <F label={<span style={{ display: 'flex', alignItems: 'center', gap: 8 }}>宣传文案 <button onClick={handleGenPromo} disabled={aiLoading === 'promo'} style={{ ...btnS('#f0fdf4','#6ee7b7','#065f46'), fontSize: 11, padding: '2px 10px' }}>{aiLoading === 'promo' ? '生成中...' : '🤖 AI 生成'}</button></span>} full>
-                  {form._promo
-                    ? <pre style={{ margin: 0, padding: '12px 16px', background: '#f0fdf4', border: '1px solid #065f46', borderRadius: 8, fontSize: 13, color: '#374151', whiteSpace: 'pre-wrap', fontFamily: 'inherit', lineHeight: 1.8 }}>{form._promo}</pre>
-                    : <div style={{ padding: '12px 16px', background: '#f0fdf4', border: '1px dashed #1a3a2a', borderRadius: 8, fontSize: 13, color: '#059669' }}>填写项目名和主题后点击生成</div>}
+                <F label={<span style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                  🚀 一键宣发素材
+                  <button onClick={handleGenPromo} disabled={aiLoading === 'promo'} style={{ ...btnS('#059669','#fff','none'), fontSize: 12, padding: '3px 12px' }}>
+                    {aiLoading === 'promo' ? '⏳ 生成中...' : '✨ AI 一键生成'}
+                  </button>
+                </span>} full>
+                  {form._promo && typeof form._promo === 'object' ? (
+                    <div style={{ background: '#f9fffe', border: '1px solid #bbf7d0', borderRadius: 12, overflow: 'hidden' }}>
+                      {/* Tab 切换 */}
+                      <div style={{ display: 'flex', borderBottom: '1px solid #bbf7d0', background: '#f0fdf4' }}>
+                        {[
+                          { key: 'twitter_cn', label: '🐦 中文推文' },
+                          { key: 'twitter_en', label: '🐦 英文推文' },
+                          { key: 'telegram',   label: '📢 TG公告' },
+                          { key: 'kol_brief',  label: '📋 KOL Brief' },
+                        ].map(({ key, label }) => (
+                          <button key={key} onClick={() => setPromoTab(key)} style={{
+                            flex: 1, padding: '9px 4px', fontSize: 12, fontWeight: promoTab === key ? 700 : 400,
+                            background: promoTab === key ? '#fff' : 'transparent',
+                            color: promoTab === key ? '#059669' : '#6b7280',
+                            border: 'none', borderBottom: promoTab === key ? '2px solid #059669' : '2px solid transparent',
+                            cursor: 'pointer', transition: 'all 0.15s'
+                          }}>{label}</button>
+                        ))}
+                      </div>
+                      {/* 内容区 */}
+                      <div style={{ padding: '14px 16px', position: 'relative' }}>
+                        <pre style={{ margin: 0, fontSize: 13, color: '#374151', whiteSpace: 'pre-wrap', fontFamily: 'inherit', lineHeight: 1.8, minHeight: 80 }}>
+                          {form._promo[promoTab] || ''}
+                        </pre>
+                        <button
+                          onClick={() => { navigator.clipboard.writeText(form._promo[promoTab] || ''); showToast('已复制 ✓'); }}
+                          style={{ position: 'absolute', top: 10, right: 12, ...btnS('#f0fdf4','#059669','#bbf7d0'), fontSize: 12, padding: '3px 10px' }}>
+                          📋 复制
+                        </button>
+                      </div>
+                    </div>
+                  ) : form._promo ? (
+                    <pre style={{ margin: 0, padding: '12px 16px', background: '#f0fdf4', border: '1px solid #bbf7d0', borderRadius: 8, fontSize: 13, color: '#374151', whiteSpace: 'pre-wrap', fontFamily: 'inherit', lineHeight: 1.8 }}>{typeof form._promo === 'string' ? form._promo : JSON.stringify(form._promo)}</pre>
+                  ) : (
+                    <div style={{ padding: '16px', background: '#f9fffe', border: '1px dashed #86efac', borderRadius: 8, fontSize: 13, color: '#059669', textAlign: 'center' }}>
+                      填写项目名和主题后，点击「AI 一键生成」<br/>
+                      <span style={{ fontSize: 12, color: '#6b7280' }}>将生成：中文推文 / 英文推文 / TG公告 / KOL Brief</span>
+                    </div>
+                  )}
                 </F>
               )}
             </div>

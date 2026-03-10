@@ -530,8 +530,8 @@ function RecordCard({ r, onOpen, onEdit, onDelete }) {
         borderLeft: `4px solid ${hover ? '#10b981' : '#059669'}`,
         borderRadius: 10, padding: '16px 20px', display: 'flex', alignItems: 'center', gap: 16, cursor: 'pointer', marginBottom: 10,
         transition: 'all 0.2s ease', boxShadow: hover ? '0 4px 20px rgba(16,185,129,0.18)' : '0 1px 6px rgba(0,0,0,0.07)' }}>
-      <div style={{ width: 56, height: 56, borderRadius: 10, background: '#dcfce7', flexShrink: 0, overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid #134d2a' }}>
-        {r.poster_url ? <img src={r.poster_url} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} /> : <span style={{ fontSize: 24 }}>🎙️</span>}
+      <div style={{ width: 56, height: 56, borderRadius: 10, background: '#dcfce7', flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid #86efac' }}>
+        <span style={{ fontSize: 24 }}>🎙️</span>
       </div>
       <div style={{ flex: 1, minWidth: 0 }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4, flexWrap: 'wrap' }}>
@@ -547,6 +547,11 @@ function RecordCard({ r, onOpen, onEdit, onDelete }) {
           {r.kols && <span>🎤 {r.kols.split('\n')[0]}</span>}
         </div>
       </div>
+      {r.poster_url && (
+        <div style={{ width: 80, height: 80, borderRadius: 8, overflow: 'hidden', flexShrink: 0, border: '1px solid #bbf7d0' }}>
+          <img src={r.poster_url} alt="海报" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+        </div>
+      )}
       <div style={{ display: 'flex', gap: 8, flexShrink: 0 }} onClick={e => e.stopPropagation()}>
         <button onClick={onEdit} style={btnS('#dcfce7','#6b7280','#2d3f5c')}>编辑</button>
         <button onClick={onDelete} style={btnS('#fff5f5','#ef4444','#fecaca')}>删除</button>

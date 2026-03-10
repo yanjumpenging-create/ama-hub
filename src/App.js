@@ -15,7 +15,7 @@ const EMPTY_FORM = {
   platform: 'Telegram', owner: '', theme: '', questions: '',
   kols: '', channels: '', replay_url: '', notes: '', poster_url: '',
   // 效果追踪
-  peak_viewers: '', interactions: '', new_followers: '', rating: 0, effect_notes: '',
+  peak_viewers: null, interactions: null, new_followers: null, rating: 0, effect_notes: '',
 };
 
 export default function App() {
@@ -55,6 +55,11 @@ export default function App() {
     setSaving(true);
     const payload = { ...form };
     delete payload._promo;
+    // 转换空字符串为 null（integer 字段不接受空字符串）
+    ['peak_viewers', 'interactions', 'new_followers', 'rating'].forEach(k => {
+      if (payload[k] === '' || payload[k] === null || payload[k] === undefined) payload[k] = null;
+      else payload[k] = +payload[k]; // 转数字
+    });
     let error;
     if (editId) {
       ({ error } = await supabase.from('ama_records').update(payload).eq('id', editId));
